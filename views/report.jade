@@ -1,0 +1,16 @@
+extends layout
+
+block content
+	if sheets
+		each sheet, sID in sheets
+			details.sheet
+				summary.header-sheet
+					p <b>#{sheet.href}</b>
+					p Rules: #{sheet.rulesLength}
+					p Selectors: #{sheet.selectorsLength}
+				ol.list.list-selectors
+					each selector, sID in sheet.selectors
+						li
+							details.selector
+								summary.header-selector #{selector.selector} <span class="specificity">#{selector.specificity.value}</span>
+								.rule #{sheet.rules[selector.ruleId]}

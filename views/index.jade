@@ -1,5 +1,33 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	h1 CSSAudit
+
+	section.content
+
+		h2 Get CSS from URL
+		form(method="post",action="report")
+			fieldset
+				input#siteurl(name='siteurl', class="input input-url")
+				button(type="submit", class="input btn") Audit CSS
+
+	hr
+
+	section.content
+		h2 Parse JSON File
+		include fragments/formSpecificity.jade
+
+
+	hr
+
+	section.content
+		h2 Test Selector
+
+		if specificity
+			h3 Result
+			p <b>Selector:</b> #{selector}
+			p <b>Specificity:</b> #{specificity.raw}
+			p <b>Specificity Value:</b> #{specificity.value}
+
+
+		include fragments/formSpecificity.jade
