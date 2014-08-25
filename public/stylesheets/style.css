@@ -41,6 +41,10 @@ h1 {
     margin:10px;
 }
 
+ol {
+    padding-left:100px;
+}
+
 ol li {
     font-size:1.2em;
     clear:both;
@@ -58,11 +62,11 @@ ol p {
 
 .specificity {
     float:right;
-    background-color:#ddd;
+    background-color: #ae1008;
     color:#fff;
     padding:5px;
-    margin-left:20px;
-    border-radius:40%;
+    margin:0 20px;
+    border-radius:45%;
     font-size:0.6em;
 }
 
@@ -78,6 +82,7 @@ ol p {
 
 .header-sheet {
     padding:0 20px 0;
+    cursor:pointer;
 }
 
 .header-sheet b {
@@ -88,6 +93,14 @@ ol p {
     border-bottom:1px solid #777;
 }
 
-::-webkit-details-marker {
+.header-sheet::-webkit-details-marker {
     display:none;
+}
+
+.rule {
+    float:left;
+    margin:10px 0 5px;
+    border-top:1px solid #777;
+    padding-top:5px;
+    font-family:'Andale Mono', courier, monospace;
 }

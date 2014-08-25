@@ -3,9 +3,6 @@ var router = express.Router();
 var phantom = require('phantom');
 var specificity = require('specificity');
 
-var theSS = [];
-
-
 var parseSpec = function(specObj){
 	var _specObj = specObj.specificity.split(','),
 		parsedObj = {
@@ -74,9 +71,7 @@ var createStyleSheetObjects = function(res){
 	console.log("Received "+_sheetCount+" stylesheets to attempt to parse");
 
 	for(;_sheetIDX<_sheetCount;_sheetIDX++){
-
 		if(_sheets[_sheetIDX]){
-			console.log(typeof(_sheets[_sheetIDX]));
 			if("object"===typeof(_sheets[_sheetIDX].cssRules)){
 				console.log("Stylesheet named "+_sheets[_sheetIDX].href+" to attempt to parse");
 				_ss.push( parseSheet(_sheets[_sheetIDX]) );
@@ -84,8 +79,7 @@ var createStyleSheetObjects = function(res){
 		}
 	}
 
-
-	res.render('report',{sheets:_ss});
+	res.render('report',{title:'CSSAudit',sheets:_ss});
 
 };
 
@@ -112,15 +106,14 @@ router.post('/report',function(req,res){
 		ph.createPage(function (page) {
 			page.open(auditUrl,function(status){
 
-				setTimeout(function(){
-					page.evaluate(function(){
-						return document.styleSheets;
-					},function(result){
-						res.locals.sheets = result;
-						createStyleSheetObjects(res);
-						ph.exit();
-					});
-				},1000);
+				page.evaluate(function(){
+					return document.styleSheets;
+				},function(result){
+					res.locals.sheets = result;
+					createStyleSheetObjects(res);
+					ph.exit();
+				});
+
 			});
 
 		});
