@@ -5,15 +5,34 @@ block content
 	h1= title
 
 	if sheets
-		each sheet, sID in sheets
-			details.sheet
-				summary.header-sheet
-					p <b>#{sheet.href}</b>
-					p Rules: #{sheet.rulesLength}
-					p Selectors: #{sheet.selectorsLength}
-				ol.list.list-selectors
-					each selector, sID in sheet.selectors
-						li
-							details.selector
-								summary.header-selector #{selector.selector} <span class="specificity">#{selector.specificity.value}</span>
-								.rule #{sheet.rules[selector.ruleId]}
+		#bySelector
+			h2 By Selector Count
+			each sheet, sID in sheets
+				.sheet
+					.header-sheet.header
+						p <b>URL</b>:#{sheet.href}
+						p <b>Rules:</b> #{sheet.rulesLength}
+					section.content.content-sheet.hidden
+						table
+							thead
+								tr
+									th Line
+									th Rules
+									th Selectors
+									th Selector Count
+							tbody
+								each rule, rID in sheet.rules
+									tr.list.list-rules
+										td
+											span.number-line #{rule.lineNumber}
+										td
+											if rule.declarations
+												each declaration, dID in rule.declarations
+													span #{declaration.property}: #{declaration.value};<br>
+										td
+											pre.selectors.content
+												each selector, selID in rule.selectors
+													span #{selector}<br>
+										td
+											span.number-selectors #{rule.selectorCount}
+				br

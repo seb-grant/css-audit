@@ -16,6 +16,9 @@
 		"mongodb": "*",
 		"monk": "*",
 		"phantom":"*",
-		"specificity":"*"
+		"specificity":"*",
+        "underscore":"*",
+        "css":"*",
+        "request":"*"
 	}
 }

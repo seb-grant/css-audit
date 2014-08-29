@@ -1,0 +1,31 @@
+html body{
+    font:10px 'Andale Mono', courier, monospace;
+}
+
+.hidden {
+    display:block;
+    height:auto;
+    opacity:1;
+}
+
+.sheet {
+    border:0;
+
+}
+
+
+ol { padding-left:50px;}
+
+ol li {
+    font-size:11px;
+}
+
+li.rule {
+    position:relative;
+}
+
+span.specificity {
+    position:absolute;
+    right:0;
+    top:0;
+}

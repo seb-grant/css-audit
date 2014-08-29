@@ -41,41 +41,57 @@ h1 {
     margin:10px;
 }
 
-ol {
-    padding-left:100px;
+table {
+    width:100%;
 }
 
-ol li {
+ul {
+    padding-left:0;
+}
+
+td {
     font-size:1.2em;
     clear:both;
     padding:4px 0;
+    list-style:none;
 }
 
-ol li:nth-child(even){
+tr:nth-child(even){
     background-color:#eee;
 }
 
 
-ol p {
+td p {
     margin:4px 0;
 }
 
-.specificity {
+.specificity, .number-selectors {
     float:right;
     background-color: #ae1008;
     color:#fff;
     padding:5px;
     margin:0 20px;
-    border-radius:45%;
+    border-radius:5px;
+    font-size:0.6em;
+}
+
+.number-line {
+    float:left;
+    background-color: #4aae38;
+    color:#fff;
+    padding:5px;
+    margin:0 20px;
+    border-radius:5px;
     font-size:0.6em;
 }
 
 .sheet {
+    clear:both;
     border:1px #777 solid;
     border-radius:25px;
 }
 
-.sheet[open]{
+.header-sheet.expanded{
     border-style: solid;
     border-radius:25px 25px 0 0;
 }
@@ -89,7 +105,7 @@ ol p {
     font-size:1.2em;
 }
 
-.sheet[open] .header-sheet {
+.expanded .header-sheet {
     border-bottom:1px solid #777;
 }
 
@@ -97,10 +113,17 @@ ol p {
     display:none;
 }
 
-.rule {
+pre.rule, pre.selector {
     float:left;
     margin:10px 0 5px;
     border-top:1px solid #777;
     padding-top:5px;
     font-family:'Andale Mono', courier, monospace;
+    font-size: .8em;
+}
+
+.hidden {
+    opacity:0;
+    height:0;
+    overflow:hidden;
 }
