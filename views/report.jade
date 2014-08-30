@@ -10,29 +10,40 @@ block content
 			each sheet, sID in sheets
 				.sheet
 					.header-sheet.header
-						p <b>URL</b>:#{sheet.href}
+						p <b>URL</b>: #{sheet.href}
 						p <b>Rules:</b> #{sheet.rulesLength}
+						p <b>Selectors:</b> #{sheet.selectorsLength}
 					section.content.content-sheet.hidden
 						table
 							thead
 								tr
 									th Line
+									th Less File?
 									th Rules
 									th Selectors
-									th Selector Count
 							tbody
 								each rule, rID in sheet.rules
-									tr.list.list-rules
-										td
-											span.number-line #{rule.lineNumber}
-										td
+									tr.list.list-rules(class=rule.selectorCount>3?"rule-danger":"")
+										td.line
+											span.number.number-line #{rule.lineNumber}
+										td.file.file-less
+											if rule.lessFile
+												span.file-less #{rule.lessFile}
+										td.rules
 											if rule.declarations
 												each declaration, dID in rule.declarations
-													span #{declaration.property}: #{declaration.value};<br>
-										td
-											pre.selectors.content
-												each selector, selID in rule.selectors
-													span #{selector}<br>
-										td
-											span.number-selectors #{rule.selectorCount}
+													if(declaration.type=="declaration")
+														span <span class="rule-property">#{declaration.property}:</span> <span class="rule-value">#{declaration.value};</span><br>
+										td.selectors
+											span.number.number-selectors #{rule.selectorCount}
+											each selector, selID in rule.selectors
+												if selector.specificity
+													span(class=selector.specificity.value>30?'selector-danger':'')
+														span.specificity #{selector.specificity.value}
+														| #{selector.selector}
+													br
+												else
+													span #{selector.selector}
+													br
+
 				br

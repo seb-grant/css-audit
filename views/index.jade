@@ -8,17 +8,19 @@ block content
 		h2 Get CSS from URL
 		form(method="post",action="report")
 			fieldset
-				input#siteurl(name='siteurl', class="input input-url")
+				input#siteurl(name='siteurl', class="input input-url", placeholder="URL")
+				br
+				label
+					input#sort-line(type="radio" name='sortBy', class="input input-radio" checked=true value="lineNumber")
+					| Stylesheet Order
+					input#sort-selectors(type="radio" name='sortBy', class="input input-radio" value="selectorCount")
+					| Number of Selectors
+
 				button(type="submit", class="input btn") Audit CSS
 
 	hr
 
-	section.content
-		h2 Parse JSON File
-		include fragments/formSpecificity.jade
 
-
-	hr
 
 	section.content
 		h2 Test Selector
