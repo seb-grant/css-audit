@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var phantom = require('phantom');
 var specificity = require('specificity');
 var _ = require('underscore');
 var css = require('css');
 var request = require('request');
+var jsdom = require('jsdom');
 
 var parseSpec = function(specObj){
 
@@ -86,11 +86,12 @@ var parseSheet = function(sheetObj,url,sortOrder){
 				    }
 			    }
 
-			    _parsedObj = {
+			    var _parsedObj = {
 				    href : url,
 				    rulesLength : _rulesLength,
 				    selectorsLength : _selectorsLength,
-				    selectors : _.sortBy(_selectors,'specificity.value')
+				    selectors : _.sortBy(_selectors,'specificity.value'),
+                    size      : Math.round((sheetObj.length / 1024))
 			    };
 
 			    if(sortOrder=='lineNumber'){
@@ -129,7 +130,7 @@ var createStyleSheetObjects = function(ssURLs,res,sortOrder){
 			        console.log("Sheet "+(idx+1)+" of "+_sheetCount);
 		            console.log("Getting stylesheet from: "+url);
 		            request({uri:url,strictSSL:false},function(err,response,body){
-		                _ss.push(parseSheet(body,url,sortOrder));
+                        _ss.push(parseSheet(body,url,sortOrder));
 			            if(_ss.length===_sheetCount){
 				            res.render('report',{title:'CSSAudit',sheets:_ss});
 			            }
@@ -165,36 +166,68 @@ router.post('/specify',function(req,res){
 router.post('/report',function(req,res){
 
 	var auditUrl = req.body.siteurl,
-		sortOrder = req.body.sortBy;
+		sortOrder = req.body.sortBy,
+        _sheetURLs = [],
+        _err;
+
+    if(auditUrl.indexOf("http")!==0) auditUrl = "http://"+auditUrl;
 
 	console.log("----|     CSSAUDIT     |----" )
 	console.log("Auditing: "+auditUrl);
 	console.log("Sorting by: "+sortOrder)
 	console.log("----------------------------" )
 
-	phantom.create("--web-security=no", "--ignore-ssl-errors=yes", { port: 12345 }, function (ph) {
-		ph.createPage(function (page) {
-			page.open(auditUrl,function(status){
+    var getHostName = function(url){
+        var matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i),
+            protocol = url.substring(0,(url.indexOf(':')));
 
-				page.evaluate(function(){
-                    var _ss = "", s=0;
-                    for(;s<document.styleSheets.length;s++){
-	                    if(document.styleSheets.item(s)['href']){
-                            _ss+=document.styleSheets.item(s)['href']+"|";
-	                    }
+        return protocol+"://"+(matches && matches[1]);
+    };
+
+    request({uri:auditUrl,strictSSL:false},function(err,response,body){
+        jsdom.env(body,function(err,win){
+                if(err){
+                    _err = {
+                        title: "Error",
+                        msg  : "There was an error retrieving stylesheets.",
+                        detail : err
                     }
-                    return _ss.substring(0,_ss.length-1);
-				},function(result){
-                    var ssURLs = result.split('|');
-                    var sheets = createStyleSheetObjects(ssURLs,res,sortOrder);
-                    ph.exit();
-				});
+                    res.render('error',{error:_err});
 
-			});
+                } else {
+                    var doc = win.document,
+                        linkTags = doc.getElementsByTagName('link'),
+                        l;
 
-		});
+                    if(!linkTags){
+                        _err = {
+                            title: "Error",
+                            msg  : "No stylesheets found at this location.",
+                            detail : err
+                        }
+                        res.render('error',{error:_err});
+                    } else {
 
-	});
+                        for(l in linkTags){
+                            if("undefined" !== typeof linkTags[l].rel &&
+                                linkTags[l].rel==="stylesheet" ){
+                                var _ssHREF = linkTags[l].href;
+                                if(_ssHREF.indexOf('http')!==0){
+                                    _ssHREF = getHostName(auditUrl)+_ssHREF;
+                                }
+                                _sheetURLs.push(_ssHREF);
+                            }
+                        }
+                        console.log("Parsing stylesheets: "+_sheetURLs);
+                        createStyleSheetObjects(_sheetURLs,res,sortOrder);
+
+                    }
+
+                }
+
+            }
+        );
+    })
 
 });
 

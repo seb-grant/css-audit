@@ -1,9 +1,9 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/Users/seb_grant/.nvm/v0.10.31/bin/node',
-1 verbose cli   '/Users/seb_grant/.nvm/v0.10.31/bin/npm',
+1 verbose cli [ '/Users/sebastiangrant/local/bin/node',
+1 verbose cli   '/Users/sebastiangrant/local/bin/npm',
 1 verbose cli   'start' ]
-2 info using npm@1.4.23
-3 info using node@v0.10.31
+2 info using npm@1.4.3
+3 info using node@v0.10.26
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
 5 info prestart css-audit@0.0.1
 6 info start css-audit@0.0.1
@@ -20,9 +20,9 @@
 10 error     npm owner ls css-audit
 10 error There is likely additional logging output above.
 11 error System Darwin 13.3.0
-12 error command "/Users/seb_grant/.nvm/v0.10.31/bin/node" "/Users/seb_grant/.nvm/v0.10.31/bin/npm" "start"
-13 error cwd /Users/seb_grant/Developer/css-audit
-14 error node -v v0.10.31
-15 error npm -v 1.4.23
+12 error command "/Users/sebastiangrant/local/bin/node" "/Users/sebastiangrant/local/bin/npm" "start"
+13 error cwd /Users/sebastiangrant/Developer/cssaudit
+14 error node -v v0.10.26
+15 error npm -v 1.4.3
 16 error code ELIFECYCLE
 17 verbose exit [ 1, true ]

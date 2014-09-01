@@ -13,6 +13,7 @@ block content
 						p <b>URL</b>: #{sheet.href}
 						p <b>Rules:</b> #{sheet.rulesLength}
 						p <b>Selectors:</b> #{sheet.selectorsLength}
+						p <b>Size:</b> #{sheet.size}Kb
 					section.content.content-sheet.hidden
 						table
 							thead
@@ -23,7 +24,7 @@ block content
 									th Selectors
 							tbody
 								each rule, rID in sheet.rules
-									tr.list.list-rules(class=rule.selectorCount>3?"rule-danger":"")
+									tr.list.list-rules(class=rule.selectorCount>10?"rule-danger":"")
 										td.line
 											span.number.number-line #{rule.lineNumber}
 										td.file.file-less
@@ -38,12 +39,11 @@ block content
 											span.number.number-selectors #{rule.selectorCount}
 											each selector, selID in rule.selectors
 												if selector.specificity
-													span(class=selector.specificity.value>30?'selector-danger':'')
+													span(class=selector.specificity.value>50?'selector-danger':'')
 														span.specificity #{selector.specificity.value}
 														| #{selector.selector}
 													br
 												else
 													span #{selector.selector}
 													br
-
 				br

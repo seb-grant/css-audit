@@ -50,10 +50,6 @@ table {
     width:100%;
 }
 
-ul {
-    padding-left:0;
-}
-
 td {
     clear:both;
     padding:4px 0;
@@ -73,23 +69,7 @@ td p {
     margin:4px 0;
 }
 
-.number-selectors {
-    float:right;
-    background-color: #ae1008;
-    color:#fff;
-    padding:5px;
-    margin:0 10px;
-    border-radius:5px;
-}
 
-.number-line {
-    background-color: #4aae38;
-    color:#fff;
-    padding:5px;
-    margin:5px 20px;
-    border-radius:5px;
-    display:inline-block;
-}
 
 .sheet {
     clear:both;
@@ -119,15 +99,6 @@ td p {
     display:none;
 }
 
-pre.rule, pre.selector {
-    float:left;
-    margin:10px 0 5px;
-    border-top:1px solid #777;
-    padding-top:5px;
-    font-family:'Andale Mono', courier, monospace;
-    font-size: .8em;
-}
-
 .hidden {
     opacity:0;
     height:0;
@@ -144,11 +115,17 @@ tr {
     color: #ff3d27;
 }
 
+th {
+    background: #eee;
+    padding: 10px 0;
+}
+
 td {
     font-family: monospace;
     font-size:12px;
     vertical-align:top;
     padding:5px;
+    line-height:22px;
 }
 
 .line {
@@ -164,9 +141,25 @@ td {
     width:42%;
 }
 
-th {
-    background: #eee;
-    padding: 10px 0;
+/*** Code Styling ***/
+
+.number {
+    color:#fff;
+    padding:5px;
+    margin:0 10px;
+    border-radius:5px;
+    line-height:12px;
+}
+
+.number-selectors {
+    float:right;
+    background-color: #ae1008;
+}
+
+.number-line {
+    background-color: #4aae38;
+    color:#fff;
+    display:inline-block;
 }
 
 .rule-property {
