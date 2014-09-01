@@ -158,7 +158,7 @@ router.post('/specify',function(req,res){
 
 	if(req.body.selector){
 		var specObj = specificity.calculate(req.body.selector)[0];
-		res.render('index', { specificity:parseSpec(specObj), selector:specObj.selector } );
+		res.render('index', { specificity:parseSpec(specObj), selector:specObj.selector, title:'Specificty Tested on: '+req.body.selector } );
 	}
 
 });
