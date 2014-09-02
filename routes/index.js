@@ -71,7 +71,7 @@ router.post('/report',function(req,res){
         var matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i),
             protocol = url.substring(0,(url.indexOf(':')));
 
-        return protocol+"://"+(matches && matches[1]);
+        return protocol+"://"+(matches && matches[1])+"/";
     };
 
     request({uri:auditUrl,strictSSL:false},function(err,response,body){
