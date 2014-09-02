@@ -65,6 +65,7 @@ router.post('/report',function(req,res){
 	console.log("Auditing: "+auditUrl);
 	console.log("Sorting by: "+sortOrder)
 	console.log("----------------------------" )
+    console.log("Log output to: /var/log/dokku/cssaudit/web.00.log")
 
     var getHostName = function(url){
         var matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i),
