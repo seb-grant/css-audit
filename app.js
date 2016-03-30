@@ -4,6 +4,8 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var open = require('open');
+var http = require('http');
 
 var routes = require('./routes/index');
 
@@ -52,6 +54,10 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+var port = process.env.PORT || 3000;
+
+open('http://localhost:'+port);
 
 
 module.exports = app;

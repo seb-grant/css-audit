@@ -14,7 +14,7 @@ block content
 						p <b>Rules:</b> #{sheet.rulesLength}
 						p <b>Selectors:</b> #{sheet.selectorsLength}
 						p <b>Size:</b> #{sheet.size}Kb
-					section.content.content-sheet.hidden
+					section.content.content-sheet
 						table
 							thead
 								tr
@@ -36,10 +36,10 @@ block content
 													if(declaration.type=="declaration")
 														span <span class="rule-property">#{declaration.property}:</span> <span class="rule-value">#{declaration.value};</span><br>
 										td.selectors
-											span.number.number-selectors #{rule.selectorCount}
+											span(class='number number-selectors selector-#{rule.danger}') #{rule.selectorCount}
 											each selector, selID in rule.selectors
 												if selector.specificity
-													span(class=selector.specificity.value>50?'selector-danger':'')
+													span(class='selector-#{selector.specificity.danger}')
 														span.specificity #{selector.specificity.value}
 														| #{selector.selector}
 													br

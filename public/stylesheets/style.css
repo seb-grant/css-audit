@@ -44,6 +44,7 @@ h1 {
 }
 .content-sheet {
     overflow-x:auto;
+    background:white;
 }
 
 table {
@@ -103,6 +104,7 @@ td p {
     opacity:0;
     height:0;
     overflow:hidden;
+    display:none;
 }
 
 .comment {
@@ -139,6 +141,8 @@ td {
 
 .rules, .selectors {
     width:42%;
+    max-width:500px;
+    overflow:scroll;
 }
 
 /*** Code Styling ***/
@@ -189,6 +193,23 @@ td {
     margin-right:5px;
 }
 
+.number-selectors.selector-fine,
+.selector-fine .specificity {
+    background: green;
+}
+
+.number-selectors.selector-warning,
+.selector-warning .specificity {
+    background: yellow;
+    color:green;
+}
+
+.number-selectors.selector-danger,
 .selector-danger .specificity {
+    background: orangered;
+}
+
+.number-selectors.selector-wtf,
+.selector-wtf .specificity {
     background: #aa0000;
 }
