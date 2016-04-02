@@ -36,14 +36,31 @@ block content
 													if(declaration.type=="declaration")
 														span <span class="rule-property">#{declaration.property}:</span> <span class="rule-value">#{declaration.value};</span><br>
 										td.selectors
-											span(class='number number-selectors selector-#{rule.danger}') #{rule.selectorCount}
-											each selector, selID in rule.selectors
-												if selector.specificity
-													span(class='selector-#{selector.specificity.danger}')
-														span.specificity #{selector.specificity.value}
-														| #{selector.selector}
-													br
-												else
-													span #{selector.selector}
-													br
-				br
+											table
+												thead
+													tr
+														th Selector 
+														th(width=20) #
+														th(width=20) (b)
+												tbody
+													each selector, selID in rule.selectors
+														tr
+															td #{selector.selector}
+															if selector.specificity
+																td 
+																	span(class='selector-#{selector.specificity.danger}', title='This selector has #{selector.specificity.value} points of specificity')
+																	span.specificity #{selector.specificity.value}
+															td
+																span(class='number number-selectorlength selector-#{rule.danger}', title='This selector is #{selector.length} chars long') #{selector.length}b
+												tfoot
+													tr
+														td(colspan=3)
+															span(class='number number-selectors selector-#{rule.danger}') #{rule.selectorCount} Rules
+															span(class='number number-selectors selector-#{rule.danger}') <b>#{rule.totalLength}</b>b
+					br
+
+
+
+
+
+

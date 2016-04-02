@@ -21,15 +21,13 @@ var createStyleSheetObjects = function (ssURLs, res, sortOrder) {
                 console.log("Sheet " + (idx + 1) + " of " + _sheetCount);
                 console.log("Getting stylesheet from: " + url);
 
-                request({uri: url, strictSSL: false}, function (err, response, body) {
+                request({uri: url+'?cache='+Date.now(), strictSSL: false}, function (err, response, body) {
                     if(err){
                         console.log("error")
                         console.log(err)
                         _sheetCount--;
                     } else {
                         var parsedSheet = cssUtils.parseSheet(body, url, sortOrder);
-
-                        c
 
                         if(parsedSheet && "object"===typeof(parsedSheet)){
                             _ss.push(parsedSheet);
@@ -63,9 +61,6 @@ router.post('/specify', function (req, res) {
         var specObj = specificity.calculate(req.body.selector)[0];
 
         var _specificity = cssUtils.parseSpecificity(specObj)
-
-        console.log(_specificity)
-
         res.render('index', { specificity: _specificity, selector: specObj.selector, title: 'Specificty Tested on: ' + req.body.selector });
     }
 

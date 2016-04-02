@@ -156,7 +156,6 @@ td {
 }
 
 .number-selectors {
-    float:right;
     background-color: #ae1008;
 }
 
@@ -164,6 +163,12 @@ td {
     background-color: #4aae38;
     color:#fff;
     display:inline-block;
+}
+
+.number-selectorlength{
+    color:#333;
+    padding:2px;
+    border:1px solid;
 }
 
 .rule-property {
